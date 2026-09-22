@@ -1,0 +1,103 @@
+NOUS SOURCE LICENSE v1.0
+
+Copyright (c) 2026 Ninurta van Mierlo
+
+─────────────────────────────────────────────────────────────────────────────
+
+DEFINITIONS
+
+"Software" means the Nous source code, documentation, configuration files,
+and all associated materials in this repository.
+
+"Personal Use" means use by a single individual on hardware they personally
+own or control, solely for non-commercial purposes.
+
+"Commercial Use" means any use intended for or directed toward commercial
+advantage or monetary compensation, including but not limited to: selling
+the Software or derivative works, offering the Software as a hosted or
+cloud-based service, incorporating the Software into a commercial product,
+or using the Software to generate revenue.
+
+"Licensor" means Ninurta van Mierlo, the original author and copyright
+holder of the Software.
+
+─────────────────────────────────────────────────────────────────────────────
+
+GRANT OF RIGHTS
+
+Subject to the terms and conditions of this License, the Licensor hereby
+grants you a worldwide, royalty-free, non-exclusive, non-transferable
+license to:
+
+  1. Use the Software for Personal Use.
+  2. Copy and distribute the Software in its original or modified form,
+     provided that all copies prominently display this License, retain all
+     copyright notices, and are distributed without charge.
+  3. Modify the Software and create derivative works for Personal Use.
+
+─────────────────────────────────────────────────────────────────────────────
+
+RESTRICTIONS
+
+You may NOT, without a separate written Commercial License from the Licensor:
+
+  1. Use the Software for Commercial Use of any kind.
+  2. Offer the Software or any derivative work as a hosted, cloud-based,
+     or subscription service — whether free or paid.
+  3. Incorporate the Software or substantial portions of it into any
+     commercial product or service.
+  4. Sell, sublicense, or transfer the Software or any rights granted
+     under this License.
+  5. Remove or obscure any copyright notices, license headers, or
+     attribution statements from the Software.
+  6. Use the Nous name, logo, or branding in any way that implies
+     official endorsement of a derivative work or fork.
+
+─────────────────────────────────────────────────────────────────────────────
+
+DISTRIBUTION CONDITIONS
+
+Any distribution of the Software or derivative works must:
+
+  1. Include a complete copy of this License.
+  2. Clearly state any modifications made to the original Software.
+  3. Not be distributed under terms that restrict the recipient's rights
+     beyond those stated in this License.
+  4. Not be distributed for a fee or as part of a commercial offering.
+
+─────────────────────────────────────────────────────────────────────────────
+
+DUAL LICENSING
+
+The Licensor reserves the exclusive right to offer the Software under
+alternative commercial licenses. If you wish to use Nous for commercial
+purposes, contact the Licensor to obtain a Commercial License.
+
+Commercial licensing enquiries: https://github.com/Meg4man
+
+─────────────────────────────────────────────────────────────────────────────
+
+PRIVACY REQUIREMENT
+
+Any distribution or deployment of the Software must maintain the
+local-first, privacy-absolute design principles of the original Software.
+Distributions that centralise user data, introduce cloud dependencies, or
+compromise the privacy of end users are expressly prohibited under this
+License, regardless of whether such distribution would otherwise qualify
+as Personal Use.
+
+─────────────────────────────────────────────────────────────────────────────
+
+DISCLAIMER OF WARRANTIES
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL
+THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+─────────────────────────────────────────────────────────────────────────────
+
+This license was written for Nous. It is not an OSI-approved open source
+license. For questions about permitted use, contact the Licensor directly.
