@@ -5,52 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nous — Before you ask, Nous knows.</title>
 
-<!-- ─────────────────────────────────────────────
-     FONTS
-     Cormorant Garamond  → display / carved headlines
-     DM Mono             → terminal / data readouts
-     To swap: replace the Google Fonts URL and update --font-display / --font-mono below.
-───────────────────────────────────────────────── -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ═══════════════════════════════════════════════
-   RESET
-═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { overflow-x: hidden; max-width: 100%; }
 
-/* ═══════════════════════════════════════════════
-   DESIGN TOKENS
-   ← All colours live here. Edit freely.
-═══════════════════════════════════════════════ */
 :root {
-  /* Backgrounds — obsidian, not blue-black */
-  --void:     #2b2720;   /* page background */
+  --void:     #2b2720;
   --deep:     #0e0c09;
-  --surface:  #131008;   /* card / panel */
-  --raised:   #1a160d;   /* hover state */
+  --surface:  #131008;
+  --raised:   #1a160d;
 
-  /* Borders — stone / amber tint */
   --border:        rgba(180, 140, 80, 0.10);
   --border-bright: rgba(200, 160, 90, 0.22);
   --border-dim:    rgba(150, 120, 70, 0.07);
 
-  /* Text */
-  --text:      #ede8df;                   /* parchment white */
+  --text:      #ede8df;
   --text-dim:  rgba(224, 224, 222, 0.55);
   --muted:     rgba(200, 185, 160, 0.38);
 
-  /* Accent — amber/gold, not indigo */
-  --gold:      #c9963a;   /* primary accent */
+  --gold:      #c9963a;
   --gold-dim:  #a07830;
   --gold-pale: rgba(201, 150, 58, 0.12);
-  --stone:     #8a7d6a;   /* secondary / muted accent */
-  --signal:    #e8c87a;   /* bright highlight — signal yellow */
-  --red-dim:   rgba(180, 60, 40, 0.15);  /* danger / offline */
+  --stone:     #8a7d6a;
+  --signal:    #e8c87a;
+  --red-dim:   rgba(180, 60, 40, 0.15);
 
-  /* Typography */
   --font-display: 'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
   --font-mono:    'DM Mono', 'tCourier New', monospace;
 }
@@ -62,13 +44,9 @@ body {
   color: var(--text);
   font-family: var(--font-mono);
   overflow-x: hidden;
-  /* Subtle grain texture — feels like parchment */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
 }
 
-/* ═══════════════════════════════════════════════
-   CONSTELLATION CANVAS  (fixed behind everything)
-═══════════════════════════════════════════════ */
 #constellation-canvas {
   position: fixed;
   inset: 0;
@@ -77,9 +55,6 @@ body {
   opacity: 0.55;
 }
 
-/* ═══════════════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════════════ */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -105,7 +80,6 @@ nav {
   overflow: hidden;
 }
 
-/* ── LOGO SPANS ── */
 .logo-n {
   font-family: var(--font-display);
   font-size: 20px;
@@ -121,7 +95,6 @@ nav {
   font-weight: 400;
   letter-spacing: 0.12em;
   color: var(--text);
-  /* Start hidden behind the N */
   max-width: 0;
   opacity: 0;
   overflow: hidden;
@@ -133,7 +106,6 @@ nav {
     transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Expanded — "ous" slides out from behind the N */
 .nav-logo.logo-expanded .logo-ous {
   max-width: 80px;
   opacity: 1;
@@ -158,7 +130,6 @@ nav {
 }
 .nav-links a:hover { color: var(--signal); }
 
-/* Underline tick on hover */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -187,9 +158,6 @@ nav {
   color: var(--signal) !important;
 }
 
-/* ═══════════════════════════════════════════════
-   MOBILE HAMBURGER
-═══════════════════════════════════════════════ */
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -213,7 +181,6 @@ nav {
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--gold); }
 
-/* Mobile nav drawer */
 .nav-drawer {
   display: none;
   position: fixed; inset: 0;
@@ -266,9 +233,6 @@ nav {
   text-decoration: none;
 }
 
-/* ═══════════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════════ */
 #hero {
   position: relative;
   min-height: 100vh;
@@ -282,7 +246,6 @@ nav {
   overflow: hidden;
 }
 
-/* Parchment glow — warm amber, not blue */
 .hero-glow {
   position: absolute;
   border-radius: 50%;
@@ -312,7 +275,6 @@ nav {
   50%       { opacity: 1;   transform: scale(1.12) translateX(0); }
 }
 
-/* System status bar — top of hero */
 .hero-status {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -343,7 +305,6 @@ nav {
   background: var(--border-bright);
 }
 
-/* Main title — carved, large, serif */
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(80px, 13vw, 160px);
@@ -366,7 +327,6 @@ nav {
   text-transform: none;
 }
 
-/* Tagline — the slogan, clean and centred */
 .hero-tagline {
   font-family: var(--font-display);
   font-size: clamp(14px, 2vw, 20px);
@@ -400,7 +360,6 @@ nav {
   animation: fade-up 0.9s ease forwards 0.7s;
 }
 
-/* Coordinate readout at bottom of hero */
 .hero-coords {
   position: absolute;
   bottom: 48px; left: 50%;
@@ -428,9 +387,6 @@ nav {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ═══════════════════════════════════════════════
-   SHARED SECTION UTILITIES
-═══════════════════════════════════════════════ */
 section { position: relative; z-index: 1; }
 
 .section-inner {
@@ -439,7 +395,6 @@ section { position: relative; z-index: 1; }
   padding: 0 52px;
 }
 
-/* Section label — looks like a system identifier */
 .section-label {
   font-family: var(--font-mono);
   font-size: 9px;
@@ -452,7 +407,6 @@ section { position: relative; z-index: 1; }
   gap: 14px;
   opacity: 0.8;
 }
-/* Index number prefix */
 .section-label span.idx {
   color: var(--muted);
   font-size: 9px;
@@ -463,7 +417,6 @@ section { position: relative; z-index: 1; }
   background: linear-gradient(to right, var(--gold), transparent);
 }
 
-/* Large carved serif title */
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(38px, 5vw, 62px);
@@ -487,15 +440,11 @@ section { position: relative; z-index: 1; }
   letter-spacing: 0.02em;
 }
 
-/* Hairline dividers between sections */
 .divider {
   width: 100%; height: 1px;
   background: linear-gradient(to right, transparent, var(--border-bright), transparent);
 }
 
-/* ═══════════════════════════════════════════════
-   BUTTONS
-═══════════════════════════════════════════════ */
 .btn-primary {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -543,7 +492,6 @@ section { position: relative; z-index: 1; }
   transform: translateY(-1px);
 }
 
-/* CTA button row */
 .cta-actions {
   display: flex;
   gap: 16px;
@@ -551,9 +499,6 @@ section { position: relative; z-index: 1; }
   flex-wrap: wrap;
 }
 
-/* ═══════════════════════════════════════════════
-   SECTION: ARCHITECTURE  (#how)
-═══════════════════════════════════════════════ */
 #how { padding: 120px 0; }
 
 .how-grid {
@@ -564,7 +509,6 @@ section { position: relative; z-index: 1; }
   max-width: 760px;
 }
 
-/* Clickable layer rows */
 .layer-list { display: flex; flex-direction: column; }
 
 .layer-item {
@@ -579,7 +523,6 @@ section { position: relative; z-index: 1; }
 }
 .layer-item:first-child { border-top: 1px solid var(--border-dim); }
 
-/* Left column: dot */
 .layer-idx {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -599,7 +542,6 @@ section { position: relative; z-index: 1; }
   transition: all 0.3s;
 }
 
-/* Icon column */
 .layer-icon {
   display: flex;
   align-items: flex-start;
@@ -638,13 +580,11 @@ section { position: relative; z-index: 1; }
   letter-spacing: 0.02em;
 }
 
-/* Active / hover states */
 .layer-item:hover .layer-name,
 .layer-item.active .layer-name  { color: var(--text); }
 .layer-item:hover .layer-label,
 .layer-item.active .layer-label { color: var(--gold); }
 .layer-item.active .layer-dot   { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
-/* Active indicator bar on left edge */
 .layer-item.active::before {
   content: '';
   position: absolute;
@@ -654,7 +594,6 @@ section { position: relative; z-index: 1; }
   opacity: 0.6;
 }
 
-/* Sticky diagram panel — right column */
 .arch-visual { position: sticky; top: 120px; }
 
 .arch-diagram {
@@ -665,7 +604,6 @@ section { position: relative; z-index: 1; }
   position: relative;
   overflow: hidden;
 }
-/* Top bar — looks like a terminal window */
 .arch-diagram-header {
   display: flex;
   align-items: center;
@@ -715,7 +653,6 @@ section { position: relative; z-index: 1; }
   border-color: var(--gold);
   background: rgba(180,120,40,0.07);
 }
-/* Scan-line effect on highlighted node */
 .arch-node.highlight::after {
   content: '';
   position: absolute;
@@ -754,7 +691,6 @@ section { position: relative; z-index: 1; }
   letter-spacing: 0.04em;
 }
 
-/* Connector line between nodes */
 .arch-connector {
   display: flex;
   align-items: center;
@@ -768,9 +704,6 @@ section { position: relative; z-index: 1; }
   opacity: 0.3;
 }
 
-/* ═══════════════════════════════════════════════
-   SECTION: FEATURES  (#features)
-═══════════════════════════════════════════════ */
 #features {
   padding: 120px 0;
   background: linear-gradient(to bottom, transparent, rgba(18,14,8,0.5), transparent);
@@ -784,7 +717,6 @@ section { position: relative; z-index: 1; }
   align-items: end;
 }
 
-/* Feature grid — ruled like a manuscript page */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -799,12 +731,10 @@ section { position: relative; z-index: 1; }
   overflow: hidden;
   transition: background 0.3s;
 }t
-/* Remove right border from last in row, bottom border from last row */
 .feature-card:nth-child(3n) { border-right: none; }
 .feature-card:nth-child(n+4) { border-bottom: none; }
 .feature-card:hover { background: var(--raised); }
 
-/* Corner mark — like ancient manuscripts */
 .feature-card::before {
   content: attr(data-index);
   position: absolute;
@@ -842,9 +772,6 @@ section { position: relative; z-index: 1; }
   letter-spacing: 0.02em;
 }
 
-/* ═══════════════════════════════════════════════
-   SECTION: STACK & HARDWARE  (#stack)
-═══════════════════════════════════════════════ */
 #stack { padding: 120px 0; }
 
 .stack-layout {
@@ -854,7 +781,6 @@ section { position: relative; z-index: 1; }
   margin-top: 0;
 }
 
-/* Software table — terminal listing style */
 .stack-table { width: 100%; border-collapse: collapse; }
 .stack-table thead tr { border-bottom: 1px solid var(--border-bright); }
 .stack-table th {
@@ -897,7 +823,6 @@ nano index.html  font-size: 9px;
   letter-spacing: 0.04em;
 }
 
-/* VRAM section */
 .vram-section { margin-top: 32px; }
 .vram-header {
   display: flex;
@@ -951,7 +876,6 @@ nano index.html  font-size: 9px;
   text-align: right;
 }
 
-/* Hardware card — like a spec sheet */
 .hardware-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1031,9 +955,6 @@ nano index.html  font-size: 9px;
   font-weight: 300;
 }
 
-/* ═══════════════════════════════════════════════
-   SECTION: WHO IS NOUS FOR  (#who)
-═══════════════════════════════════════════════ */
 #who {
   padding: 120px 0;
   background: linear-gradient(to bottom, transparent, rgba(18,14,8,0.4), transparent);
@@ -1056,7 +977,6 @@ nano index.html  font-size: 9px;
 .who-card:last-child { border-right: none; }
 .who-card:hover { background: var(--raised); }
 
-/* Greek letter watermark */
 .who-card-glyph {
   font-family: var(--font-display);
   font-size: 64px;
@@ -1113,9 +1033,6 @@ nano index.html  font-size: 9px;
   opacity: 0.7;
 }
 
-/* ═══════════════════════════════════════════════
-   SECTION: ROADMAP  (#roadmap)
-═══════════════════════════════════════════════ */
 #roadmap { padding: 120px 0; }
 
 .roadmap-track {
@@ -1210,9 +1127,6 @@ nano index.html  font-size: 9px;
   background: var(--gold-pale);
 }
 
-/* ═══════════════════════════════════════════════
-   SECTION: CTA  (#cta)
-═══════════════════════════════════════════════ */
 #cta {
   padding: 120px 0;
   text-align: center;
@@ -1255,9 +1169,6 @@ nano index.html  font-size: 9px;
   text-transform: uppercase;
 }
 
-/* ═══════════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════════ */
 footer {
   position: relative; z-index: 1;
   border-top: 1px solid var(--border);
@@ -1275,7 +1186,6 @@ footer {
   align-items: center;
   gap: 16px;
 }
-/* Brand mark */
 .footer-left::before {
   content: 'N';
   font-family: var(--font-display);
@@ -1301,9 +1211,6 @@ footer {
 
 
 
-/* ═══════════════════════════════════════════════
-   PHILOSOPHY TWO-COLUMN LAYOUT
-═══════════════════════════════════════════════ */
 .philosophy-layout {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -1312,7 +1219,6 @@ footer {
   align-items: start;
 }
 
-/* Sidebar — core principles pulled out on the right */
 .philosophy-sidebar {
   border-left: 1px solid var(--border-bright);
   padding-left: 36px;
@@ -1346,10 +1252,6 @@ footer {
   letter-spacing: 0.02em;
 }
 
-/* ═══════════════════════════════════════════════
-   ROADMAP — YOU ARE HERE
-═══════════════════════════════════════════════ */
-/* "You are here" badge on active phase */
 .roadmap-now-badge {
   font-family: var(--font-mono);
   font-size: 9px;
@@ -1366,14 +1268,12 @@ footer {
   92%            { opacity: 0.3; }
 }
 
-/* Active phase title is larger and brighter */
 .roadmap-title-active {
   font-size: 34px !important;
   color: var(--text) !important;
   margin-bottom: 14px !important;
 }
 
-/* Active phase item gets a subtle gold-tinted panel */
 .roadmap-item.active .roadmap-content {
   background: linear-gradient(135deg, rgba(201,150,58,0.04) 0%, transparent 60%);
   border: 1px solid var(--border);
@@ -1382,15 +1282,9 @@ footer {
   margin-left: -28px;
 }
 
-/* ═══════════════════════════════════════════════
-   GLOBAL OVERFLOW FIX
-═══════════════════════════════════════════════ */
 html, body { overflow-x: hidden; max-width: 100%; }
 
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE — 768px
-═══════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
   nav { padding: 16px 20px; }
@@ -1435,7 +1329,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .features-header { grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .feature-card { padding: 24px 18px; }
-  /* Re-apply border rules for 2-col grid */
   .feature-card:nth-child(3n)  { border-right: 1px solid var(--border-dim); }
   .feature-card:nth-child(2n)  { border-right: none; }
   .feature-card:nth-child(n+5) { border-bottom: none; }
@@ -1479,7 +1372,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .footer-right { flex-wrap: wrap; gap: 14px; }
 }
 
-/* ── 480px ── */
 @media (max-width: 480px) {
   .section-inner { padding: 0 16px; }
   .features-grid { grid-template-columns: 1fr; }
@@ -1496,9 +1388,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 }
 
 
-/* ═══════════════════════════════════════════════
-   PHILOSOPHY SECTION
-═══════════════════════════════════════════════ */
 .philosophy-body {
   max-width: 680px;
   display: flex;
@@ -1513,7 +1402,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   color: var(--text-dim);
   letter-spacing: 0.02em;
 }
-/* "Nous is the third option." — stands out */
 .philosophy-highlight {
   font-family: var(--font-display) !important;
   font-size: 24px !important;
@@ -1524,7 +1412,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   line-height: 1.3 !important;
   padding: 8px 0;
 }
-/* Final line — slightly more prominent */
 .philosophy-closing {
   color: var(--text) !important;
   font-style: italic;
@@ -1534,9 +1421,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 }
 
 
-/* ═══════════════════════════════════════════════
-   PHILOSOPHY CONTINUATION (full-width text below sidebar)
-═══════════════════════════════════════════════ */
 .philosophy-continuation {
   display: flex;
   flex-direction: column;
@@ -1560,9 +1444,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   margin-top: 4px;
 }
 
-/* ═══════════════════════════════════════════════
-   SCROLL PROGRESS BAR — left edge, gold hairline
-═══════════════════════════════════════════════ */
 #scroll-progress {
   position: fixed;
   left: 0; top: 0;
@@ -1574,9 +1455,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   opacity: 0.7;
 }
 
-/* ═══════════════════════════════════════════════
-   CURSOR GLOW
-═══════════════════════════════════════════════ */
 #cursor-glow {
   position: fixed;
   pointer-events: none;
@@ -1590,9 +1468,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   opacity: 0;
 }
 
-/* ═══════════════════════════════════════════════
-   FEATURE ICON — hover animation
-═══════════════════════════════════════════════ */
 .feature-card:hover .feature-icon svg {
   transform: scale(1.15) rotate(6deg);
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1601,7 +1476,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   transition: transform 0.3s ease;
 }
 
-/* Mobile: hide scroll progress */
 @media (max-width: 768px) {
   #scroll-progress { display: none; }
   .philosophy-continuation { margin-top: 32px; padding-top: 28px; }
@@ -1612,23 +1486,14 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </head>
 <body>
 
-<!-- ─────────────────────────────────────────────
-     CONSTELLATION CANVAS
-     Draws stars + connecting lines — rendered by JS.
-───────────────────────────────────────────────── -->
 <canvas id="constellation-canvas"></canvas>
 <div id="scroll-progress"></div>
 <div id="cursor-glow"></div>
 
 
-<!-- ─────────────────────────────────────────────
-     NAVIGATION
-     Replace all "https://github.com/your-repo" with your actual repo URL.
-───────────────────────────────────────────────── -->
 <nav>
   <a href="#" class="nav-logo" id="nav-logo"><span class="logo-n">N</span><span class="logo-ous">ous</span></a>
 
-  <!-- Desktop links -->
   <ul class="nav-links">
     <li><a href="#why">Vision</a></li>
     <li><a href="#how">Architecture</a></li>
@@ -1638,13 +1503,11 @@ html, body { overflow-x: hidden; max-width: 100%; }
     <li><a href="https://github.com/Meg4man/Nous" target="_blank" class="nav-cta">GitHub &#x2197;</a></li>
   </ul>
 
-  <!-- Hamburger (mobile only) -->
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- Mobile nav drawer -->
 <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
   <ul>
     <li><a href="#why"      class="drawer-link">Vision</a></li>
@@ -1659,9 +1522,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </div>
 
 
-<!-- ─────────────────────────────────────────────
-     HERO
-───────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-glow hero-glow-1"></div>
   <div class="hero-glow hero-glow-2"></div>
@@ -1683,9 +1543,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </section>
 
 
-<!-- ─────────────────────────────────────────────
-     ARCHITECTURE  (#how)
-───────────────────────────────────────────────── -->
 <div class="divider"></div>
 <section id="why">
   <div class="section-inner">
@@ -1699,7 +1556,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
       <p>But there is something bigger underneath it.</p>
       <p>We live in a world that has quietly decided your attention, your data, and your habits are products to be harvested and sold back to you in monthly instalments. Every major platform, every AI assistant, every smart device built on the same model. You pay, or you are the payment. There is rarely a third option.</p>
       <p class="philosophy-highlight">Nous is the third option.</p>
-    </div><!-- /philosophy-body -->
+    </div>
 
     <div class="philosophy-sidebar">
       <div class="sidebar-label">Core Principles</div>
@@ -1723,17 +1580,16 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <div class="sidebar-item-name">Open source</div>
         <div class="sidebar-item-desc">Inspect every line. Fork it. Extend it. Build on top of it.</div>
       </div>
-    </div><!-- /philosophy-sidebar -->
+    </div>
 
-    </div><!-- /philosophy-layout -->
+    </div>
 
-    <!-- Full-width continuation — text extends edge to edge after the sidebar -->
     <div class="philosophy-continuation" id="philosophy-continuation">
       <p class="stagger-p">It will always be free. Not free until we find a business model. Free because intelligence that serves you should not cost you your privacy to access. This is built on the shoulders of thousands of people who chose to give their work to the world rather than monetise it. The least Nous can do is the same.</p>
       <p class="stagger-p">Technology has given me more than I could ever put into words. The ability to learn, to build things I didn't think I could. Most importantly for me personally, the ability to connect. Nous is my attempt to give something back, to put real capability in the hands of people who need it, without a corporation standing in the middle taking a cut.</p>
       <p class="stagger-p">Nous is one project created by one person. But the idea is older than any of us, that knowledge and intelligence belong to everyone.</p>
       <p class="stagger-p philosophy-closing">This is not a product launch. It is a build in progress. I don't know if I can pull it off, but I'm prepared to pour my heart and soul into this project. If you believe intelligence should belong to everyone, come build it with us.</p>
-    </div><!-- /philosophy-continuation -->
+    </div>
   </div>
 </section>
 
@@ -1747,7 +1603,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
     <div class="how-grid">
 
-      <!-- Layer list (left) -->
       <div class="layer-list" id="layer-list">
 
         <div class="layer-item active" data-layer="0">
@@ -1800,7 +1655,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
           </div>
         </div>
 
-      </div><!-- /layer-list -->
+      </div>
 
 
     </div>
@@ -1808,10 +1663,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </section>
 
 
-<!-- ─────────────────────────────────────────────
-     FEATURES  (#features)
-     data-index on each card = corner glyph label.
-───────────────────────────────────────────────── -->
 <div class="divider"></div>
 <section id="features">
   <div class="section-inner">
@@ -1879,9 +1730,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </section>
 
 
-<!-- ─────────────────────────────────────────────
-     STACK & HARDWARE  (#stack)
-───────────────────────────────────────────────── -->
 <div class="divider"></div>
 <section id="stack">
   <div class="section-inner">
@@ -1922,11 +1770,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </section>
 
 
-<!-- ─────────────────────────────────────────────
-     WHO IS NOUS FOR  (#who)
-     .who-card-glyph = large Greek letter watermark.
-     Change the character inside to any Greek letter.
-───────────────────────────────────────────────── -->
 <div class="divider"></div>
 <section id="who">
   <div class="section-inner">
@@ -1936,7 +1779,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
     <div class="who-grid">
 
       <div class="who-card">
-        <span class="who-card-glyph">&#x3BB;</span><!-- λ lambda -->
+        <span class="who-card-glyph">&#x3BB;</span>
         <div class="who-illustration">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
@@ -1950,7 +1793,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
       </div>
 
       <div class="who-card">
-        <span class="who-card-glyph">&#x3C6;</span><!-- φ phi -->
+        <span class="who-card-glyph">&#x3C6;</span>
         <div class="who-illustration">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
         </div>
@@ -1964,7 +1807,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
       </div>
 
       <div class="who-card">
-        <span class="who-card-glyph">&#x3C9;</span><!-- ω omega -->
+        <span class="who-card-glyph">&#x3C9;</span>
         <div class="who-illustration">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
@@ -1982,12 +1825,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </section>
 
 
-<!-- ─────────────────────────────────────────────
-     ROADMAP  (#roadmap)
-     .active = pulsing dot (in progress)
-     .done   = filled dot (completed)
-     .done-tag on individual tags = shipped
-───────────────────────────────────────────────── -->
 <div class="divider"></div>
 <section id="roadmap">
   <div class="section-inner">
@@ -2056,9 +1893,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </section>
 
 
-<!-- ─────────────────────────────────────────────
-     CTA / GITHUB
-───────────────────────────────────────────────── -->
 <div class="divider"></div>
 <section id="cta">
   <div class="section-inner" style="position:relative; z-index:1;">
@@ -2076,9 +1910,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </section>
 
 
-<!-- ─────────────────────────────────────────────
-     FOOTER
-───────────────────────────────────────────────── -->
 <footer>
   <div class="footer-left">Nous &nbsp;&middot;&nbsp; Ninurta van Mierlo &nbsp;&middot;&nbsp; Open Source &nbsp;&middot;&nbsp; v0.1</div>
   <div class="footer-right">
@@ -2091,16 +1922,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </footer>
 
 
-<!-- ─────────────────────────────────────────────
-     JAVASCRIPT
-     0. Mobile nav drawer
-     1. Constellation canvas — stars + connecting lines
-     2. Layer → node interaction
-     3. Scroll-reveal animations
-───────────────────────────────────────────────── -->
 <script>
 
-// ── 0. MOBILE NAV DRAWER ──────────────────────
 const hamburger = document.getElementById('nav-hamburger');
 const drawer    = document.getElementById('nav-drawer');
 
@@ -2125,9 +1948,6 @@ document.querySelectorAll('.drawer-link').forEach(l => l.addEventListener('click
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
 
-// ── 1. CONSTELLATION CANVAS ───────────────────
-// Renders warm-tinted stars with connecting lines
-// between nearby stars — like an ancient star chart.
 const canvas = document.getElementById('constellation-canvas');
 const ctx    = canvas.getContext('2d');
 let stars = [], W, H;
@@ -2139,7 +1959,6 @@ function resize() {
 
 function initStars() {
   stars = [];
-  // Fewer, larger stars — more like a night sky chart
   const count = Math.floor((W * H) / 9000);
   for (let i = 0; i < count; i++) {
     stars.push({
@@ -2147,15 +1966,13 @@ function initStars() {
       y:     Math.random() * H,
       r:     Math.random() * 1.4 + 0.2,
       a:     Math.random() * 0.7 + 0.1,
-      t:     Math.random() * Math.PI * 2,   // twinkle offset
-      ts:    Math.random() * 0.015 + 0.004, // twinkle speed
-      // Warm amber tint on some stars, cool white on others
+      t:     Math.random() * Math.PI * 2,
+      ts:    Math.random() * 0.015 + 0.004,
       warm:  Math.random() > 0.6,
     });
   }
 }
 
-// Find pairs of stars within connection distance
 function getEdges(maxDist) {
   const edges = [];
   for (let i = 0; i < stars.length; i++) {
@@ -2177,19 +1994,16 @@ function buildEdges() {
 function draw() {
   ctx.clearRect(0, 0, W, H);
 
-  // Draw constellation lines first (behind stars)
   edges.forEach(({ i, j, d, maxDist }) => {
     const opacity = (1 - d / maxDist) * 0.12;
     ctx.beginPath();
     ctx.moveTo(stars[i].x, stars[i].y);
     ctx.lineTo(stars[j].x, stars[j].y);
-    // Amber-tinted lines
     ctx.strokeStyle = `rgba(180, 140, 70, ${opacity})`;
     ctx.lineWidth   = 0.5;
     ctx.stroke();
   });
 
-  // Draw stars
   stars.forEach(s => {
     s.t += s.ts;
     const twinkle = 0.5 + 0.5 * Math.sin(s.t);
@@ -2199,10 +2013,8 @@ function draw() {
     ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
 
     if (s.warm) {
-      // Amber/gold star
       ctx.fillStyle = `rgba(220, 175, 90, ${alpha})`;
     } else {
-      // Pale parchment-white star
       ctx.fillStyle = `rgba(235, 225, 200, ${alpha * 0.8})`;
     }
     ctx.fill();
@@ -2223,7 +2035,6 @@ window.addEventListener('resize', () => {
 });
 
 
-// ── 2. LAYER → NODE INTERACTION ───────────────
 const layerItems = document.querySelectorAll('.layer-item');
 const archNodes  = document.querySelectorAll('.arch-node');
 
@@ -2239,12 +2050,10 @@ layerItems.forEach(item => {
     }
   });
 });
-// Highlight first node on load (if arch diagram is present)
 const firstNode = document.querySelector('.arch-node[data-node="0"]');
 if (firstNode) firstNode.classList.add('highlight');
 
 
-// ── 3. SCROLL-REVEAL ──────────────────────────
 const revealTargets = document.querySelectorAll(
   '.feature-card, .who-card, .roadmap-item, .hw-item'
 );
@@ -2266,10 +2075,6 @@ revealTargets.forEach(el => {
 
 
 
-// ── 4. LOGO SCROLL ANIMATION ─────────────────
-// "ous" slides out 600ms after page load.
-// Collapses back when scrolling down past hero.
-// Re-expands when scrolled back to the top.
 const navLogo = document.getElementById('nav-logo');
 
 if (navLogo) {
@@ -2294,7 +2099,6 @@ if (navLogo) {
 }
 
 
-// ── 5. SCROLL PROGRESS BAR ───────────────────
 const progressBar = document.getElementById('scroll-progress');
 if (progressBar) {
   window.addEventListener('scroll', () => {
@@ -2305,7 +2109,6 @@ if (progressBar) {
 }
 
 
-// ── 6. CURSOR GLOW ───────────────────────────
 const cursorGlow = document.getElementById('cursor-glow');
 if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
   let cx = -300, cy = -300;
@@ -2319,7 +2122,6 @@ if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
     cursorGlow.style.opacity = '0';
   });
 
-  // Smooth follow with lerp
   (function animateGlow() {
     glowX += (cx - glowX) * 0.08;
     glowY += (cy - glowY) * 0.08;
@@ -2330,16 +2132,12 @@ if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
 }
 
 
-// ── 7. CONSTELLATION MOUSE INTERACTION ───────
-// Stars near cursor brighten, lines glow
 let mouseX = -1000, mouseY = -1000;
 document.addEventListener('mousemove', e => {
   mouseX = e.clientX;
   mouseY = e.clientY;
 }, { passive: true });
 
-// Patch the existing draw() to use mouse proximity
-// Override the star fill with proximity boost
 const _origDraw = draw;
 function drawEnhanced() {
   ctx.clearRect(0, 0, W, H);
@@ -2381,13 +2179,10 @@ function drawEnhanced() {
   requestAnimationFrame(drawEnhanced);
 }
 
-// Replace the original animation loop
 cancelAnimationFrame(window._constellationRaf);
 drawEnhanced();
 
 
-// ── 8. LAYER AUTO-CYCLE ───────────────────────
-// Cycles through layer items every 3s if no interaction
 const layerList2 = document.getElementById('layer-list');
 if (layerList2) {
   const items    = layerList2.querySelectorAll('.layer-item');
@@ -2409,14 +2204,12 @@ if (layerList2) {
     }, 3000);
   }
 
-  // Pause on any interaction with the layer list
   layerList2.addEventListener('mouseenter', () => { paused = true; });
   layerList2.addEventListener('mouseleave', () => { paused = false; });
   items.forEach((item, idx) => {
     item.addEventListener('click', () => {
       paused = true;
       activateLayer(idx);
-      // Resume cycling after 8s idle
       clearTimeout(window._resumeTimer);
       window._resumeTimer = setTimeout(() => { paused = false; }, 8000);
     });
@@ -2426,7 +2219,6 @@ if (layerList2) {
 }
 
 
-// ── 9. PHILOSOPHY PARAGRAPH STAGGER ──────────
 const staggerPs = document.querySelectorAll('.stagger-p');
 if (staggerPs.length) {
   const staggerObs = new IntersectionObserver((entries) => {
@@ -2452,17 +2244,15 @@ if (staggerPs.length) {
 }
 
 
-// ── 10. SECTION LABEL SCRAMBLE ────────────────
-// Letters scramble briefly then resolve when label enters view
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 function scramble(el) {
   const original = el.textContent;
   const len      = original.length;
   let   frame    = 0;
-  const total    = 18; // frames of scramble
+  const total    = 18;
   const interval = setInterval(() => {
     el.textContent = original.split('').map((char, i) => {
-      if (char === ' ' || i < frame - 4) return char; // resolve left to right
+      if (char === ' ' || i < frame - 4) return char;
       return CHARS[Math.floor(Math.random() * CHARS.length)];
     }).join('');
     frame++;
@@ -2486,13 +2276,10 @@ const labelObs = new IntersectionObserver((entries) => {
 sectionLabels.forEach(label => labelObs.observe(label));
 
 
-// ── 11. HERO TITLE FLICKER ────────────────────
-// Very occasionally one letter of NOUS flickers gold
 const heroTitle = document.querySelector('.hero-title');
 if (heroTitle) {
-  const titleText = heroTitle.childNodes[0]; // "Nous" text node
+  const titleText = heroTitle.childNodes[0];
   if (titleText && titleText.nodeType === 3) {
-    // Wrap each letter
     const letters = titleText.textContent.trim().split('');
     const wrapper = document.createElement('span');
     wrapper.className = 'hero-title-letters';
@@ -2516,7 +2303,6 @@ if (heroTitle) {
         span.style.transition = 'color 0.4s ease';
       }, 80 + Math.random() * 60);
 
-      // Schedule next flicker — infrequent, 4–12s apart
       setTimeout(flicker, 4000 + Math.random() * 8000);
     }
     setTimeout(flicker, 3000);
