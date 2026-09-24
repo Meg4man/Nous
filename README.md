@@ -9,7 +9,7 @@
 
 > **Before you ask — Nous knows.**
 
-Nous is a universal, proactive AI ecosystem that lives on your own hardware. It learns from you, adapts to your routines, and acts before you need to ask. Named after the ancient Greek concept of the universal intelligent mind.
+Nous is a universal, proactive AI ecosystem that lives on your own hardware. It learns from you, adapts to your routines, and acts before you need to ask. Named after the ancient Greek concept of the universal intelligent mind. Claude is used for designing, layouts and the website. This way I can work on the prototype whilst the website, apps are being designed and it saves me time so we all can use Nous faster.
 
 No cloud. No subscription. No compromise.
 
