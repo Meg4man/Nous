@@ -19,11 +19,11 @@ No cloud. No subscription. No compromise.
 
 | Other AI assistants | Nous |
 |---|---|
-| Your data lives on their servers | Your data never leaves your hardware |
+| Your data lives on their servers | Your data never leaves your network |
 | Monthly subscription | Free forever, once built |
-| Reactive — waits for you to ask | Proactive — acts before you ask |
-| Cloud-dependent | Runs fully offline |
-| Black box | Open source, every line |
+| Reactive — waits for you to ask | Proactive acts before you ask(with permission)|
+| Cloud-dependent | Runs fully offline/online(depends on configuration and custom additions) |
+| Closed source | Open source, every line readable and editable to your own desires |
 
 ---
 
@@ -86,28 +86,23 @@ Total                                                ~21 GB / 24 GB
 
 ## Hardware — Prototype Build
 
-| Component | Model | Role | Est. |
+| Recommended hardware |
 |---|---|---|---|
-| GPU | NVIDIA RTX 3090 | Heart of the AI — 24 GB VRAM | €850 |
-| CPU | AMD Ryzen 7 7700X | Orchestration & background processes | €275 |
-| Motherboard | ASUS TUF B650-PLUS WiFi | AM5 socket | €169 |
-| RAM | Corsair Vengeance DDR5 32 GB | Containers + models in parallel | €200 |
-| PSU | Cooler Master MWE Gold 850W | Stable power for GPU workloads | €110 |
-| CPU Cooler | Lian Li Galahad II Lite 360 | Sustained AI workloads | €130 |
-| Case | NZXT H5 Flow | Airflow + cable management | €95 |
-| Storage | 1 TB NVMe SSD | OS, models, Docker, database | €80 |
-| **Total** | | | **~€1,909** |
+| GPU | NVIDIA RTX 3090 | 24 GB VRAM(21GB Vram needed)|
+| CPU | AMD Ryzen 7 7700X | Intel core I5-13600k
+| RAM | DDR5 32 GB |
+| Storage | at least 1 TB for models, temporary storage and possible programs |
 
 ### Peripherals & Sensors
 
 | Component | Model | Role | Est. |
 |---|---|---|---|
-| Smart Speaker / Mic | M5Stack ATOM Echo | In-room voice interaction | €34 |
-| Camera | TP-Link Tapo C120 | Presence detection, activity recognition | €79 |
-| Motion Sensor | TP-Link Tapo T100 | Triggers presence detection | €20 |
-| Smart Lights | IKEA TRADFRI (Zigbee) | Controllable lighting | €80 |
-| Zigbee USB Dongle | SONOFF Zigbee 3.0 | USB Zigbee coordinator | €20 |
-| IR Blaster | Broadlink RM4 Mini | TV, A/C, IR devices | €33 |
+| Smart Speaker / Mic | M5Stack ATOM Echo | In-room voice interaction |
+| Camera | TP-Link Tapo C120 | Presence detection, activity recognition |
+| Motion Sensor | TP-Link Tapo T100 | Triggers presence detection |
+| Smart Lights | IKEA TRADFRI (Zigbee) | Controllable lighting |
+| Zigbee USB Dongle | SONOFF Zigbee 3.0 | USB Zigbee coordinator |
+| IR Blaster | Broadlink RM4 Mini | TV, A/C, IR devices |
 
 ---
 
@@ -115,9 +110,9 @@ Total                                                ~21 GB / 24 GB
 
 | Platform | Priority | Status |
 |---|---|---|
-| Windows | High | Prototype target |
+| Linux | High | Prototype target |
 | Android | High | Companion app — prototype target |
-| Linux | High | Server OS — primary desktop after Windows |
+| Windows | medium | after prototype|
 | macOS | Medium | Future release |
 | iOS | Lower | Future release after macOS |
 
@@ -174,12 +169,6 @@ Total                                                ~21 GB / 24 GB
 
 > Nous is currently in active prototype development. Full setup documentation will be published as each component ships. Track progress on the [roadmap](#roadmap) above.
 
-**Minimum requirements to run inference:**
-- NVIDIA GPU with 8+ GB VRAM (RTX 3090 recommended for full stack)
-- Ubuntu Server 24.04 LTS
-- Docker + Docker Compose
-- NVIDIA Container Toolkit
-
 ---
 
 ## Contributing
@@ -194,7 +183,7 @@ One hard rule: **every contribution must be able to run fully locally.** No PR t
 
 Nous is built on the belief that intelligence should belong to everyone — not rented from a platform, not paid for with your privacy, not dependent on a server farm you don't control.
 
-It will always be free. Not free with a premium tier. Not free until we find a business model. Free.
+It will always be free. Not free until we find a business model. Free.
 
 ---
 
