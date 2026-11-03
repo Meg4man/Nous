@@ -17,7 +17,7 @@ Nous is currently in active prototype development. Security fixes are applied to
 
 If you find a security issue — especially anything that could compromise the local-first or privacy-absolute principles of Nous — report it directly:
 
-- GitHub: [@Meg4man](https://github.com/Meg4man)
+- Use GitHub's private reporting: open the [Security tab](https://github.com/Meg4man/Nous/security), go to **Advisories**, and click **Report a vulnerability**
 
 Include:
 - A clear description of the vulnerability
