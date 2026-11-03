@@ -1,0 +1,5 @@
+Contact: https://github.com/Meg4man/Nous/security/advisories/new
+Expires: 2027-10-01T00:00:00.000Z
+Preferred-Languages: en, nl
+Canonical: https://projectnous.eu/.well-known/security.txt
+Policy: https://github.com/Meg4man/Nous/blob/main/SECURITY.md
