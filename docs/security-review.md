@@ -54,12 +54,6 @@ I ran nikto against a local copy of the site. It reported three things, and none
 
 **DNSSEC.** The DNS host's own nameservers don't support it, and entering keys without a signed zone would make the domain fail for validating resolvers. I left it off. Moving DNS to a provider that signs zones is an option if it becomes worth the extra moving parts.
 
-## Revisit when the dashboard goes live
-
-- Set HSTS, CSP, X-Frame-Options and nosniff on my own server.
-- Serve a build folder, never the repository root, and block `/.git/` in the server config.
-- Reconsider DNSSEC.
-- Renew the `Expires` date in `security.txt` before 2027-10-01.
 
 ## Limits of this review
 
