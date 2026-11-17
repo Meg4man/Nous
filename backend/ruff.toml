@@ -1,0 +1,10 @@
+target-version = "py312"
+line-length = 120
+
+[lint]
+select = ["E", "F", "I", "UP", "B", "BLE", "DTZ", "ASYNC"]
+ignore = [
+    "BLE001",   # broad Exception catch — intentional at API boundaries
+    "B008",     # FastAPI uses File/Depends/Security in defaults by design
+    "E402",     # load_dotenv() before imports — intentional dotenv pattern
+]

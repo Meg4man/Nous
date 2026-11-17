@@ -1,0 +1,47 @@
+# nous-api requirements
+# Pin major versions; exact pins set after lock-file generation
+# Run: pip install -r requirements.txt --upgrade-strategy only-if-needed
+
+# ── Web framework ──────────────────────────────────────────────────────────────
+fastapi>=0.115.0,<0.116
+uvicorn[standard]>=0.32.0,<0.33        # includes httptools + websockets
+python-multipart>=0.0.12               # file/form uploads
+
+# ── Auth ───────────────────────────────────────────────────────────────────────
+python-jose[cryptography]>=3.3.0,<4.0  # JWT encode/decode
+passlib[bcrypt]>=1.7.4,<2.0            # password hashing (future user accounts)
+
+# ── LangChain — local only, no OpenAI ─────────────────────────────────────────
+langchain>=0.3.7,<0.4
+langchain-community>=0.3.7,<0.4        # ChromaDB loader, misc integrations
+langchain-ollama>=0.2.0,<0.3           # Non-deprecated ChatOllama / OllamaEmbeddings
+langchain-core>=0.3.15,<0.4            # Black October: pin >= 1.2.22 equiv in 0.3.x
+langgraph>=0.2.45,<0.3                 # Black October: pin >= 1.0.10 equiv
+
+# ── LLM / embeddings ──────────────────────────────────────────────────────────
+ollama>=0.4.0,<0.5                     # Ollama Python SDK (local only)
+
+# ── Vector memory ─────────────────────────────────────────────────────────────
+chromadb>=0.5.18,<0.6                  # local ChromaDB client
+psycopg2-binary>=2.9.9,<3.0           # pgvector / PostgreSQL
+pgvector>=0.3.5,<0.4                   # pgvector Python client
+
+# ── HTTP client (internal service calls) ──────────────────────────────────────
+httpx>=0.27.0,<0.28                    # async-first, used for HA / SearXNG / Whisper
+
+# ── Input validation & sanitisation ───────────────────────────────────────────
+pydantic>=2.9.0,<3.0                   # already a FastAPI dep; explicit for clarity
+bleach>=6.1.0,<7.0                     # HTML/script sanitisation on text inputs
+
+# ── Background tasks ──────────────────────────────────────────────────────────
+apscheduler>=3.10.4,<4.0               # proactive worker cron jobs
+
+# ── Logging / audit ───────────────────────────────────────────────────────────
+structlog>=24.4.0,<25.0                # structured JSON audit logs
+
+# ── Environment ───────────────────────────────────────────────────────────────
+python-dotenv>=1.0.1,<2.0
+
+# ── Security hardening ────────────────────────────────────────────────────────
+# Upgrade these explicitly after install — Black October supply chain patches
+# pip install --upgrade pip==26.2.2 certifi==2026.10.19
