@@ -1,0 +1,176 @@
+# Nous — Docker Compose
+# All services bind to 127.0.0.1 only. Never 0.0.0.0.
+# The nous-api itself binds to the Tailscale interface (set NOUS_BIND_HOST in .env).
+#
+# Start order: ollama → chromadb + postgres → nous-api → everything else
+# Usage:
+#   docker compose up -d
+#   docker compose logs -f nous-api
+#
+# First run — initialise pgvector schema:
+#   docker compose exec postgres psql -U nous -d nousdb -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+services:
+
+  # ── PostgreSQL + pgvector ─────────────────────────────────────────────────────
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: nous-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nousdb
+      POSTGRES_USER: nous
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nous -d nousdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── ChromaDB ──────────────────────────────────────────────────────────────────
+  # CVE-2026-45829 (CVSS 10.0, unpatched): bind to 127.0.0.1 only — never expose externally.
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: nous-chromadb
+    restart: unless-stopped
+    environment:
+      CHROMA_SERVER_HOST: 0.0.0.0        # inside container; host binding is enforced below
+      CHROMA_SERVER_HTTP_PORT: "8000"
+      ANONYMIZED_TELEMETRY: "false"
+      ALLOW_RESET: "false"
+    volumes:
+      - chromadb_data:/chroma/chroma
+    ports:
+      - "127.0.0.1:8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── SearXNG ───────────────────────────────────────────────────────────────────
+  searxng:
+    image: searxng/searxng:latest
+    container_name: nous-searxng
+    restart: unless-stopped
+    environment:
+      SEARXNG_BASE_URL: "http://127.0.0.1:8888"
+    volumes:
+      - searxng_data:/etc/searxng
+    ports:
+      - "127.0.0.1:8888:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── DeepFace ──────────────────────────────────────────────────────────────────
+  deepface:
+    image: serengil/deepface:latest
+    container_name: nous-deepface
+    restart: unless-stopped
+    volumes:
+      - deepface_data:/root/.deepface
+    ports:
+      - "127.0.0.1:5000:5000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── Piper TTS ─────────────────────────────────────────────────────────────────
+  piper:
+    image: rhasspy/wyoming-piper:latest
+    container_name: nous-piper
+    restart: unless-stopped
+    command: --voice en_US-lessac-medium
+    volumes:
+      - piper_data:/data
+    ports:
+      - "127.0.0.1:10200:10200"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "10200"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── OpenWakeWord ──────────────────────────────────────────────────────────────
+  openwakeword:
+    image: rhasspy/wyoming-openwakeword:latest
+    container_name: nous-openwakeword
+    restart: unless-stopped
+    command: --preload-model hey_jarvis
+    ports:
+      - "127.0.0.1:10400:10400"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "10400"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── Home Assistant ────────────────────────────────────────────────────────────
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: nous-homeassistant
+    restart: unless-stopped
+    privileged: true                     # needed for USB/Zigbee dongle passthrough
+    network_mode: host                   # HA needs host networking for mDNS discovery
+    environment:
+      TZ: Europe/Amsterdam
+    volumes:
+      - homeassistant_data:/config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8123/api/"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+
+  # ── nous-api ──────────────────────────────────────────────────────────────────
+  # Ollama is NOT containerised here — it runs bare-metal on the server.
+  # Set OLLAMA_HOST=http://host-gateway:11434 to reach it from this container.
+  nous-api:
+    build:
+      context: ./nous-api
+      dockerfile: Dockerfile
+    container_name: nous-api
+    restart: unless-stopped
+    env_file: ./nous-api/.env
+    environment:
+      OLLAMA_HOST: http://host-gateway:11434
+      CHROMA_HOST: chromadb
+      CHROMA_PORT: "8000"
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      HA_HOST: http://host-gateway:8123    # HA uses host networking, reach via gateway
+      SEARXNG_HOST: http://searxng:8080
+      DEEPFACE_HOST: http://deepface:5000
+      PIPER_HOST: http://piper:10200
+    extra_hosts:
+      - "host-gateway:host-gateway"        # resolves to the Docker host IP
+    ports:
+      - "${NOUS_BIND_HOST:-127.0.0.1}:${NOUS_BIND_PORT:-8080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chromadb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/status"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+# ── Volumes ───────────────────────────────────────────────────────────────────
+volumes:
+  postgres_data:
+  chromadb_data:
+  searxng_data:
+  deepface_data:
+  piper_data:
+  homeassistant_data:
