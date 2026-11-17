@@ -149,6 +149,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+from auth import auth_router
+app.include_router(auth_router)
+
 # CORS: allow only the Nous web interface and mobile app origins
 # In production, replace with your actual Tailscale hostnames / IPs
 _ALLOWED_ORIGINS = [
