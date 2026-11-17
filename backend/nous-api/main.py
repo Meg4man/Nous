@@ -269,10 +269,36 @@ async def voice(
         log.error("voice.agent_error", error=str(exc))
         raise HTTPException(status_code=503, detail="Agent error") from exc
 
+    # ── Piper TTS (optional) ──────────────────────────────────────────────────
+    # If PIPER_HOST is set and reachable, synthesise the response text to audio.
+    # Returns a data URI the client can play directly. Fails gracefully — if
+    # Piper is down, audio_url is null and the text response is still returned.
+    audio_url: str | None = None
+    piper_host = os.getenv("PIPER_HOST", "")
+    if piper_host and chat_response.response:
+        try:
+            import base64 as _b64
+            import httpx as _httpx
+            async with _httpx.AsyncClient() as _client:
+                _r = await _client.post(
+                    f"{piper_host}/api/tts",
+                    content=chat_response.response.encode(),
+                    headers={"Content-Type": "text/plain"},
+                    timeout=30,
+                )
+            if _r.status_code == 200:
+                _b64_audio = _b64.b64encode(_r.content).decode()
+                audio_url = f"data:audio/wav;base64,{_b64_audio}"
+                log.info("voice.tts_ok", user=user, audio_bytes=len(_r.content))
+            else:
+                log.warning("voice.tts_failed", status=_r.status_code)
+        except Exception as _exc:
+            log.warning("voice.tts_unavailable", error=str(_exc))
+
     return VoiceResponse(
         transcript=transcript,
         response=chat_response.response,
-        audio_url=None,
+        audio_url=audio_url,
         session_id=chat_response.session_id,
         confidence=chat_response.confidence,
     )
